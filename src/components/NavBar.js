@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export const NavBar = (props) => {
   return (
@@ -7,9 +8,9 @@ export const NavBar = (props) => {
       className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}
     >
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           {props.title}
-        </a>
+        </Link>
 
         <button
           className="navbar-toggler"
@@ -25,15 +26,15 @@ export const NavBar = (props) => {
         <div className="collapse navbar-collapse" id="navbarScroll">
           <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
-              </a>
+              </Link>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <Link className="nav-link active" aria-current="page" to="/about">
                 {props.about}
-              </a>
+              </Link>
             </li>
           </ul>
           <form className="d-flex " role="search">
@@ -58,6 +59,7 @@ export const NavBar = (props) => {
                 role="switch"
                 id="flexSwitchCheckDefault"
                 onClick={props.toggleMode}
+                aria-checked="false"
               />
               <label
                 className="form-check-label"

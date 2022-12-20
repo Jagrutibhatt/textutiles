@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 
-export default function About() {
+export default function About(props) {
   const [myStyle, useMyStyle] = useState({
-    // color: "white",
-    // backgroundColor: "black",
+    color: "black",
+    backgroundColor: "white",
   });
 
   const [modeName, useModeName] = useState("Enable Dark mode");
   const enableMode = () => {
-    if (myStyle.color === "white") {
+    if (myStyle.color === "black") {
+      useMyStyle({ color: "#fff9db", backgroundColor: "#1d3d56" });
+      useModeName("Enable Light mode");
+    }
+
+    if (myStyle.color === "#fff9db") {
       useMyStyle({ color: "black", backgroundColor: "white" });
-      useModeName("Enable Dark mode");
-    } else {
-      useMyStyle({ color: "white", backgroundColor: "black" });
       useModeName("Enable Light mode");
     }
   };
+
+  // const myBtnStyle = {
+  //   backgroundColor: props.mode === "dark" ? "#1d3d56" : "#f08c00",
+  //   color: props.mode === "dark" ? "white" : "#fff9db",
+  //   border: props.mode === "dark" ? "none" : "none",
+  // };
 
   return (
     <div className="container" style={myStyle}>
@@ -25,7 +33,7 @@ export default function About() {
           <h2 className="accordion-header" id="headingOne">
             <button
               style={myStyle}
-              className="accordion-button"
+              className="accordion-button "
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseOne"

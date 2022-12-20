@@ -1,10 +1,17 @@
-// import "./App.css";
+import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
-// import About from "./components/About";
+import About from "./components/About";
 import FormText from "./components/FormText";
 import NavBar from "./components/NavBar";
 import Alert from "./components/Alert";
+import {
+  BrowserRouter as Router,
+  // Switch,
+  Route,
+  // Link,
+  Routes,
+} from "react-router-dom";
 
 function App() {
   //whether dark mode enabled or not
@@ -25,41 +32,50 @@ function App() {
       showAlert("Enabled dark mode", "success");
       document.title = "TextUtils - Dark Mode";
 
-      setInterval(() => {
-        document.title = "Jagruti is AMAZING";
-      }, 1000);
-      setInterval(() => {
-        document.title = "Jagruti is THE BEST";
-      }, 1500);
+      // * NOTE HOW TO SET BLINKING NOTES ON WEB top title
+      // setInterval(() => {
+      //    document.title = "Jagruti is AMAZING";
+      // }, 1000);
+      // setInterval(() => {
+      //   document.title = "Jagruti is THE BEST";
+      // }, 1500);
     } else {
       setMode("light");
       document.body.style.backgroundColor = "white";
       showAlert("Enabled light mode", "success");
       document.title = "TextUtils - Light Mode";
     }
-    setInterval(() => {
-      document.title = "Jagruti is AMAZING";
-    }, 1000);
-    setInterval(() => {
-      document.title = "Jagruti is THE BEST";
-    }, 1500);
   };
 
   return (
     <>
-      <NavBar
-        title="Textutils"
-        about="About"
-        mode={mode}
-        toggleMode={toggleMode}
-      />
-      <Alert alert={alert} />
-      <FormText
-        heading="Enter the text to analyze the below"
-        mode={mode}
-        showAlert={showAlert}
-        alert={alert}
-      />
+      <Router>
+        <NavBar
+          title="Textutils"
+          about="About"
+          mode={mode}
+          toggleMode={toggleMode}
+        />
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            <Route path="/about" element={<About />} />
+
+            <Route
+              exact
+              path="/"
+              element={
+                <FormText
+                  heading="Enter the text to analyze the below"
+                  mode={mode}
+                  showAlert={showAlert}
+                  alert={alert}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
     </>
   );
 }

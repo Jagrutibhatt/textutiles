@@ -28,10 +28,7 @@ const FormText = (props) => {
     props.showAlert("Cleared the message", "success");
   };
   const reverseText = () => {
-    const textnew = text
-      .split("")
-      .reverse()
-      .join(" ");
+    const textnew = text.split("").reverse().join(" ");
 
     useText(textnew);
     props.showAlert("Message is reversed", "success");
@@ -61,7 +58,7 @@ const FormText = (props) => {
   return (
     <>
       <div
-        className="container"
+        className="container "
         style={{
           color: props.mode === "dark" ? "white" : "#042743",
         }}
@@ -70,7 +67,7 @@ const FormText = (props) => {
         <div className="mb-3">
           <textarea
             value={text}
-            rows="10"
+            rows="8"
             className="form-control"
             id="myBox"
             aria-label="With textarea"
