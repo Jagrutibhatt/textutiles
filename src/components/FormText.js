@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 // import App from "../../App";
+import "../App.css";
 
 const FormText = (props) => {
   const [text, useText] = useState("");
@@ -15,12 +16,12 @@ const FormText = (props) => {
     const newText = text.toUpperCase();
     useText(newText);
     // useText("you have clicked on button");
-    props.showAlert("Message changed to Uppercase", "success");
+    props.showAlert("Text changed to Uppercase", "success");
   };
   const changeToLowercase = () => {
     const newText2 = text.toLowerCase();
     useText(newText2);
-    props.showAlert("Message changed to Lowercase", "success");
+    props.showAlert("Text changed to Lowercase", "success");
   };
   const clearText = () => {
     const newText1 = "";
@@ -31,22 +32,25 @@ const FormText = (props) => {
     const textnew = text.split("").reverse().join(" ");
 
     useText(textnew);
-    props.showAlert("Message is reversed", "success");
+    props.showAlert("Text is reversed", "success");
   };
 
   // Copy text
   const handleCopy = () => {
-    const text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
-    props.showAlert("Message copied to clipboard", "success");
+    //*no need as we are using nagator .clipboard
+    // const text = document.getElementById("myBox");
+    // text.select();
+    // document.getSelection().removeAllRanges();
+    // navigator.clipboard.writeText(text.value);
+    navigator.clipboard.writeText(text);
+    props.showAlert("Text copied to clipboard", "success");
   };
 
   // Remove extra spaces
   const handleExtraSpaces = () => {
     let newText = text.split(/[ ]+/);
     useText(newText.join(" "));
-    props.showAlert("Message's extra white spaces is removed", "success");
+    props.showAlert("Text's extra white spaces is removed", "success");
   };
 
   const myBtnStyle = {
@@ -79,48 +83,58 @@ const FormText = (props) => {
             }}
           ></textarea>
         </div>
-        <button
-          className="btn btn-primary mx-1"
-          onClick={changeToUppercase}
-          style={myBtnStyle}
-        >
-          Convert to Uppercase
-        </button>
-        <button
-          className="btn btn-primary mx-1"
-          style={myBtnStyle}
-          onClick={changeToLowercase}
-        >
-          Convert to Lowercase
-        </button>
-        <button
-          className="btn btn-primary mx-1"
-          onClick={reverseText}
-          style={myBtnStyle}
-        >
-          Reverse Text
-        </button>
-        <button
-          className="btn btn-primary mx-1"
-          onClick={clearText}
-          style={myBtnStyle}
-        >
-          Clear Text
-        </button>
-        <button
-          className="btn btn-primary mx-1"
-          onClick={handleCopy}
-          style={myBtnStyle}
-        >
-          Copy Text
-        </button>
-        <button
-          className="btn btn-primary mx-1"
-          onClick={handleExtraSpaces}
-          style={myBtnStyle}
-        >
-          Remove extra spaces
-        </button>
+        <div className="row">
+          <div className="col-10">
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              onClick={changeToUppercase}
+              style={myBtnStyle}
+              disabled={!text}
+            >
+              Uppercase
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              style={myBtnStyle}
+              onClick={changeToLowercase}
+              disabled={!text}
+            >
+              Lowercase
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              onClick={reverseText}
+              style={myBtnStyle}
+              disabled={!text}
+            >
+              Reverse Text
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              onClick={clearText}
+              style={myBtnStyle}
+              disabled={!text}
+            >
+              Clear Text
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              onClick={handleCopy}
+              style={myBtnStyle}
+              disabled={!text}
+            >
+              Copy Text
+            </button>
+            <button
+              className="btn btn-primary mx-1 my-1 disabled-button"
+              onClick={handleExtraSpaces}
+              style={myBtnStyle}
+              disabled={!text}
+            >
+              Remove Spaces
+            </button>
+          </div>
+        </div>
       </div>
       <div
         className="container my-3"
@@ -130,10 +144,20 @@ const FormText = (props) => {
       >
         <h2>Your text summery</h2>
         <p>
-          {text.length === 0 ? 0 : text.split(" ").length} words and{" "}
-          {text.length} characters
+          {
+            text.split(/\s+/).filter((ele) => {
+              return ele.length !== 0;
+            }).length
+          }{" "}
+          words and {text.length} characters
         </p>
-        <p>{0.008 * text.split(" ").length} minutes to read</p>
+        <p>
+          {0.008 *
+            text.split(" ").filter((ele) => {
+              return ele.length !== 0;
+            }).length}{" "}
+          minutes to read
+        </p>
         <h3>Preview</h3>
         <p style={{ color: "grey" }}>
           {text.length > 0 ? text : "Enter text above to preview."}

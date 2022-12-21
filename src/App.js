@@ -32,7 +32,7 @@ function App() {
       showAlert("Enabled dark mode", "success");
       document.title = "TextUtils - Dark Mode";
 
-      // * NOTE HOW TO SET BLINKING NOTES ON WEB top title
+      // * NOTE HOW TO SET BLINKING NOTES ON WEBSITE top title
       // setInterval(() => {
       //    document.title = "Jagruti is AMAZING";
       // }, 1000);
@@ -59,14 +59,14 @@ function App() {
         <Alert alert={alert} />
         <div className="container my-3">
           <Routes>
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About mode={mode} />} />
 
             <Route
               exact
               path="/"
               element={
                 <FormText
-                  heading="Enter the text to analyze the below"
+                  heading="Try TextUtils: Enter the text to analyze below"
                   mode={mode}
                   showAlert={showAlert}
                   alert={alert}
